@@ -85,7 +85,7 @@ namespace Corsi_Ouputer.C_Files
                             }
                         }
                         //Gets the plays in the game.
-                        else if (line.Contains("FullPlayByPlayPeriod"))
+                        else if (line.Contains("FullPlayByPlayPeriod") && !(line.Contains("ShootOut")))
                         {
                             RunThroughPBP(txt[txtIndex + 1]);
                         }
@@ -239,22 +239,22 @@ namespace Corsi_Ouputer.C_Files
                         }
                     }
                 }
-                else if (pbpLines[i].Contains("Shot by"))
+                else if (pbpLines[i].Contains("Shot by") && !pbpLines[i].Contains("Penalty"))
                 {
-                    if(team1.CheckIfOnTeam(pbpLines[i]))
-                    {
-                        team1.AddShots(team1PlayersForwards);
-                        team1.AddShots(team1PlayersDefense);
-                        team2.RemoveShots(team2PlayersForwards);
-                        team2.RemoveShots(team2PlayersDefense);
-                    }
-                    else if (team2.CheckIfOnTeam(pbpLines[i]))
-                    {
-                        team2.AddShots(team2PlayersForwards);
-                        team2.AddShots(team2PlayersDefense);
-                        team1.RemoveShots(team1PlayersForwards);
-                        team1.RemoveShots(team1PlayersDefense);
-                    }
+                        if (team1.CheckIfOnTeam(pbpLines[i]))
+                        {
+                            team1.AddShots(team1PlayersForwards);
+                            team1.AddShots(team1PlayersDefense);
+                            team2.RemoveShots(team2PlayersForwards);
+                            team2.RemoveShots(team2PlayersDefense);
+                        }
+                        else if (team2.CheckIfOnTeam(pbpLines[i]))
+                        {
+                            team2.AddShots(team2PlayersForwards);
+                            team2.AddShots(team2PlayersDefense);
+                            team1.RemoveShots(team1PlayersForwards);
+                            team1.RemoveShots(team1PlayersDefense);
+                        }
                 }
             }
         }
